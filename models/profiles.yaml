@@ -7,11 +7,13 @@ models:
       entity_key: user
       validity_time: 24h # 1 day
       py_repo_url: git@github.com:rudderlabs/rudderstack-profiles-classifier.git
+
+
       train:
         file_extension: .json
         file_validity: 168h # If the last trained model is older than this, then the model will be trained again,
         inputs:
-          - packages/feature_table/models/user_profile_sample
+          # - packages/feature_table/models/user_profile_sample
         config:
           data:
             package_name: feature_table # Name of the package where the profiles feature table is defined (declared in pb_project.yaml packages)
@@ -19,10 +21,18 @@ models:
             label_value: 1
             prediction_horizon_days: 7
             model_name: 'user_profile_sample'
+            entity_column: 'profile_id'
+          preprocessing:
+            ignore_features: ['campaign_sources', 'campaigns_list', 'mediums_list', 'sources_list']
       predict:
         inputs:
-          - packages/feature_table/models/user_profile_sample
+          # - packages/feature_table/models/user_profile_sample
         config:
+          data:
+            entity_column: 'profile_id'
+            model_name: 'user_profile_sample'
+          preprocessing:
+            ignore_features: ['campaign_sources', 'campaigns_list', 'mediums_list', 'sources_list']
           outputs:
             column_names:
               percentile: &percentile_name percentile_churn_score_7_days
