@@ -13,7 +13,7 @@ models:
         file_extension: .json
         file_validity: 168h # If the last trained model is older than this, then the model will be trained again,
         inputs:
-          # - packages/feature_table/models/user_profile_sample
+          - packages/feature_table/models/user_profile_sample
         config:
           data: &model_data_input_configs
             label_column: is_churned_7_days
@@ -26,7 +26,7 @@ models:
             ignore_features: ['campaign_sources', 'campaigns_list', 'mediums_list', 'sources_list']
       predict:
         inputs:
-          # - packages/feature_table/models/user_profile_sample
+          - packages/feature_table/models/user_profile_sample
         config:
           data: *model_data_input_configs
           preprocessing: *model_data_preprocessing_configs
